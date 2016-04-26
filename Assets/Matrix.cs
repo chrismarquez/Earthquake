@@ -77,7 +77,6 @@ public class Matrix {
 		}
 		return new Matrix(result);
 	}
-
 	//Only applies to square matrices
 	public Matrix GetInverse() {
 		if (this.m == this.n) {
