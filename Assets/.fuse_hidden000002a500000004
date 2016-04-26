@@ -1,0 +1,20 @@
+﻿using UnityEngine;
+using System.Collections;
+using UnityEngine.UI;
+
+public class NumericalMethods : MonoBehaviour {
+
+	void Start() {
+		/*
+		double[] a = {4, -1};
+		double[] b = {2, -1};
+		Polynomial A = new Polynomial(a);
+		Polynomial B = new Polynomial(b);
+		Polynomial C = A + B;
+		print(C.ToString())*/
+	}
+
+	void Update() {
+
+	}
+}
