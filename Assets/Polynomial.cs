@@ -12,6 +12,11 @@ public class Polynomial {
 		}
 	}
 
+	public Polynomial() {
+		this.polynomial = new double[1];
+		this.polynomial[0] = 1.0;
+	}
+
 	public Polynomial(int order) {
 		this.polynomial = new double[order + 1];
 		this.order = order;
@@ -83,12 +88,42 @@ public class Polynomial {
 		return new Polynomial(product);
 	}
 
+	public bool IsZero() {
+		for (int i = 0;i < this.polynomial.Length; i++) {
+			if (this.polynomial[i] != 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public double f(double a) {
+		double result = 0;
+		for (int i = 0; i < this.polynomial.Length; i++) {
+			result += this.polynomial[i] * Mathf.Pow((float)a, (float)i);
+		}
+		return result;
+	}
+
+	public double Derivative(double a, double precision) {
+		double h = 100.0 - precision;
+		return (this.f(a + h) - this.f(a)) / h;
+	}
+
+	public double[] ToArray() {
+		double[] copy = new double[this.order + 1];
+		for (int i = 0; i < this.polynomial.Length; i++) {
+			copy[i] = this.polynomial[i];
+		}
+		return copy;
+	}
+
 
 	public override string ToString() {
         string result = "";
         for (int i = 0; i < this.order + 1; i++) {
         	if (this.polynomial[i] == -1) {
-        		result += "-" + (i == 0 ? " ": (i == 1 ? "λ " : "λ" + ExpFormat(i) + " "));
+        		result += "-" + (i == 0 ? -this.polynomial[i] + " ": (i == 1 ? "λ " : "λ" + ExpFormat(i) + " "));
         	} else if (this.polynomial[i] != 1) {
         		result += this.polynomial[i] + (i == 0 ? " ": (i == 1 ? "λ " : "λ" + ExpFormat(i) + " "));
         	} else if (this.polynomial[i] == 1 && i == 0){

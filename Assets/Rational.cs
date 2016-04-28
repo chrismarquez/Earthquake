@@ -8,8 +8,7 @@ public class Rational {
 
 	public Rational(Polynomial polynomial) {
 		this.up = polynomial;
-		this.down = new Polynomial(0);
-		this.down.AddValue(0, 1); // p(x) = 1
+		this.down = new Polynomial();
 	}
 
 	public Rational(Polynomial up, Polynomial down) {
@@ -55,24 +54,53 @@ public class Rational {
 		return new Rational(up, a.down);
 	}
 
+	public bool IsZero() {
+		return this.up.IsZero();
+	}
+
 	private bool IsPolynomial() {
 		for (int i = 0; i < this.down.Order + 1; i++) {
-			if (i != 0 && this.down[i] != 0) {
+			if (this.down[i] != 0) {
 				return false;
 			}
 		}
 		return true;
 	}
 
+	public Polynomial LongDivision() {
+		//Debug.Log(this.up.Order + ", " + this.down.Order);
+		if (this.down.Order == 0) {
+			return this.up / this.down[0];
+		}
+		double[] result = new double[this.up.Order - this.down.Order + 1];
+		double[] up = this.up.ToArray();
+		double[] down = this.down.ToArray();
+		Debug.Log(new Polynomial(up));
+		for (int i = this.up.Order; i >= this.down.Order; i--) {
+			int j = this.down.Order;
+			Debug.Log(i - j + ", " + i + ", " + j);
+			result[i - j] = up[i] / down[j];
+			int k = i;
+			int a = i - j;
+			while(j >= 0) {
+				up[k--] += result[a] * down[j--] * -1;
+			}
+			Debug.Log(new Polynomial(up));
+		}
+		return new Polynomial(result);
+	}
+
 
 	public override string ToString() {
-        string result = "";
-        result += this.up + "\n";
-        for (int i = 0; i < 7*this.up.Order; i++) {
-        	result += "-";
-        }
-        result += "\n";
-        result += this.down + "\n";
-        return result;
+		if (IsPolynomial()) {
+			string result = "";
+			result += this.up;
+			return result;
+		} else {
+			string result = "";
+	        result += "((" + this.up + ") / (" + this.down + "))";
+	        return result;
+		}
+        
     }
 }
