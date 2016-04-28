@@ -27,7 +27,7 @@ public class Polynomial {
 		this.order = polynomial.Length - 1;
 	}
 
-	public void AddValue(int index, int data) {
+	public void AddValue(int index, double data) {
 		this.polynomial[index] += data;
 	}
 
