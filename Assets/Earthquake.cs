@@ -12,7 +12,8 @@ public class Earthquake : MonoBehaviour {
 	private int contador=0;
 	public Button AddButton;
 	public Text[] textos;
-
+	private int posX;
+	private bool adonde;
 	void Awake() {
 		
 		pisos = new List<Piso> ();
@@ -52,11 +53,33 @@ public class Earthquake : MonoBehaviour {
 		Debug.Log (contador);
 	}
 
+	public void Finalizar() {
+		StartCoroutine ("Finalizado");
+	}
+
+	public IEnumerator Finalizado(){
+		for (int j = 0; j < 10; j++) {
+			yield return new WaitForSeconds (0.05f);
+			for (int i = 0; i < this.pisos.Count; i++) {
+				pisos [i].piso.transform.Translate (5, 0, 0);
+			}
+			yield return new WaitForSeconds (0.05f);
+			for (int i = 0; i < this.pisos.Count; i++) {
+				pisos [i].piso.transform.Translate (-10, 0, 0);
+			}
+			yield return new WaitForSeconds (0.05f);
+			for (int i = 0; i < this.pisos.Count; i++) {
+				pisos [i].piso.transform.Translate (5, 0, 0);
+			}
+		}
+	}
+
+	/*
 	public double[] Finalizar(){
 		/*
 		pisos = new double[niveles];
 		return pisos;
-		*/
+
 		double[] resultado = new double[pisos.Count];
 		for (int i = 0; i < pisos.Count; i++) {
 			resultado [i] = pisos [i].Peso;
@@ -64,6 +87,9 @@ public class Earthquake : MonoBehaviour {
 		}
 		return resultado;
 	}
+	*/
+
+
 
 	public void Destruir(){
 		GameObject piso = pisos [--this.contador].piso;
