@@ -75,17 +75,17 @@ public class Rational {
 		double[] result = new double[this.up.Order - this.down.Order + 1];
 		double[] up = this.up.ToArray();
 		double[] down = this.down.ToArray();
-		Debug.Log(new Polynomial(up));
+		//Debug.Log(new Polynomial(up));
 		for (int i = this.up.Order; i >= this.down.Order; i--) {
 			int j = this.down.Order;
-			Debug.Log(i - j + ", " + i + ", " + j);
+			//Debug.Log(i - j + ", " + i + ", " + j);
 			result[i - j] = up[i] / down[j];
 			int k = i;
 			int a = i - j;
 			while(j >= 0) {
 				up[k--] += result[a] * down[j--] * -1;
 			}
-			Debug.Log(new Polynomial(up));
+			//Debug.Log(new Polynomial(up));
 		}
 		return new Polynomial(result);
 	}

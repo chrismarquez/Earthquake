@@ -27,8 +27,11 @@ public class Test : MonoBehaviour {
 		m[1][0] = b; m[1][1] = d; m[1][2] = b;
 		m[2][0] = c; m[2][1] = f; m[2][2] = e;
 		Matrix M = new Matrix(m);
-		Debug.Log(M);
-		Debug.Log(M.GetDeterminant());
+		Polynomial p = M.GetDeterminant();
+		double[] roots = NumericalMethods.ExtractRoots(p);
+		for (int i = 0; i < roots.Length; i++) {
+			Debug.Log(roots[i]);
+		}
 	}
 	
 	// Update is called once per frame
